@@ -49,6 +49,12 @@ if(NOT prt_DIR)
 	endif()
 
 	set(prt_DIR "${prt_SOURCE_DIR}/cmake")
+
+	if(P4C_LINUX)
+		message( STATUS "patching ${prt_SOURCE_DIR}/bin/libcom.esri.prt.core.so using patchelf" )
+		execute_process(COMMAND patchelf --set-rpath \$ORIGIN ${prt_SOURCE_DIR}/bin/libcom.esri.prt.core.so )
+	endif()
+
 endif()
 
 find_package(prt CONFIG REQUIRED)
